@@ -16,7 +16,7 @@ class CarController {
   }
 
   public async create() {
-    console.log(this.req.body);
+    // console.log(this.req.body);
     const car: ICar = {
       model: this.req.body.model,
       year: this.req.body.year,
@@ -28,12 +28,13 @@ class CarController {
       
     };
 
-    // try {
     const newCar = await this.service.register(car);
     return this.res.status(201).json(newCar);
-    // } catch (error) {
-    //   this.next(error);
-    // }
+  }
+
+  public async getAllCars(): Promise<object> {
+    const result = await this.service.getAllCars();
+    return this.res.status(200).json(result);
   }
 }
 export default CarController;
