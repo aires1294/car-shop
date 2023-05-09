@@ -12,6 +12,7 @@ abstract class AbstractODM<T> {
   }
 
   public async create(obj: T): Promise<T> {
+    console.log(obj);
     return this.model.create({ ...obj });
   }
 }

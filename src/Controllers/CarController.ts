@@ -16,23 +16,24 @@ class CarController {
   }
 
   public async create() {
+    console.log(this.req.body);
     const car: ICar = {
-      model: this.req.body.value,
-      year: this.req.body.value,
-      color: this.req.body.value,
-      status: this.req.body.value,
-      buyValue: this.req.body.value,
-      doorsQty: this.req.body.value,
-      seatsQty: this.req.body.value,
+      model: this.req.body.model,
+      year: this.req.body.year,
+      color: this.req.body.color,
+      status: this.req.body.status,
+      buyValue: this.req.body.buyValue,
+      doorsQty: this.req.body.doorsQty,
+      seatsQty: this.req.body.seatsQty,
+      
     };
 
-    try {
-      const newCar = await this.service.register(car);
-      return this.res.status(201).json(newCar);
-    } catch (error) {
-      this.next(error);
-    }
+    // try {
+    const newCar = await this.service.register(car);
+    return this.res.status(201).json(newCar);
+    // } catch (error) {
+    //   this.next(error);
+    // }
   }
 }
-
 export default CarController;
