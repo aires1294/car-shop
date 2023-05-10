@@ -1,6 +1,8 @@
+import { isValidObjectId } from 'mongoose';
 import ICar from '../Interfaces/ICar';
 import CarODM from '../Models/CarODM';
 import Car from '../Domains/Car';
+import CustomError from '../Utils/error';
 
 class CarService {
   private carODM: CarODM;
@@ -33,6 +35,17 @@ class CarService {
     }));
     return result;
   }
+
+  public async getCarById(id: string) {
+    if (!isValidObjectId(id)) throw new CustomError(422, 'Invalid mongo id');
+    const car = await this.carODM.getCarById(id);
+    console.log('estgou aqui', car);
+    
+    if (!car) throw new CustomError(404, 'Car not found');
+    return this.createCarDomain(car);
+  }
 }
 
 export default CarService;
+
+// { "message": "Invalid mongo id" }
