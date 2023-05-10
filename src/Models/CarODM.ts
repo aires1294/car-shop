@@ -20,7 +20,7 @@ class CarODM extends AbstractODM<ICar> {
   }
 
   public async getCarById(id: string): Promise<ICar | null> {
-    return this.model.findOne({ id });
+    return this.model.findOne({ _id: id });
   }
 }
 

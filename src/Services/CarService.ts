@@ -39,7 +39,7 @@ class CarService {
   public async getCarById(id: string) {
     if (!isValidObjectId(id)) throw new CustomError(422, 'Invalid mongo id');
     const car = await this.carODM.getCarById(id);
-    console.log('estgou aqui', car);
+    console.log('AGORAAAA', car);
     
     if (!car) throw new CustomError(404, 'Car not found');
     return this.createCarDomain(car);
