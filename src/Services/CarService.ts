@@ -35,6 +35,13 @@ class CarService {
     }));
     return result;
   }
+  // DA PRA FAZER O GETALLCARS DE MANEIRA MAIS FACIL
+  //-----------------------------------------------
+  // public async getAllCars() {
+  //   const allCars = await this.carODM.getAll();
+  //   return allCars.map(this.createCarDomain);
+  // }
+  //-----------------------------------------------
 
   public async getCarById(id: string) {
     if (!isValidObjectId(id)) throw new CustomError(422, 'Invalid mongo id');
@@ -48,7 +55,6 @@ class CarService {
   public async updateCarById(id: string, car: ICar) {
     if (!isValidObjectId(id)) throw new CustomError(422, 'Invalid mongo id');
     const updatedCar = await this.carODM.updateCarById(id, car);
-    // console.log('AGORAAAA', car);
     
     if (!updatedCar) throw new CustomError(404, 'Car not found');
     return this.createCarDomain(updatedCar);
