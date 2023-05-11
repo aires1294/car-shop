@@ -39,13 +39,23 @@ class CarService {
   public async getCarById(id: string) {
     if (!isValidObjectId(id)) throw new CustomError(422, 'Invalid mongo id');
     const car = await this.carODM.getCarById(id);
-    console.log('AGORAAAA', car);
+    // console.log('AGORAAAA', car);
     
     if (!car) throw new CustomError(404, 'Car not found');
     return this.createCarDomain(car);
+  }
+
+  public async updateCarById(id: string, car: ICar) {
+    if (!isValidObjectId(id)) throw new CustomError(422, 'Invalid mongo id');
+    const updatedCar = await this.carODM.updateCarById(id, car);
+    // console.log('AGORAAAA', car);
+    
+    if (!updatedCar) throw new CustomError(404, 'Car not found');
+    return this.createCarDomain(updatedCar);
   }
 }
 
 export default CarService;
 
-// { "message": "Invalid mongo id" }
+// const result = this.getAllCars();
+// return this.createCarDomain(car);
