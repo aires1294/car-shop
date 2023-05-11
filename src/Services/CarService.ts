@@ -35,13 +35,6 @@ class CarService {
     }));
     return result;
   }
-  // DA PRA FAZER O GETALLCARS DE MANEIRA MAIS FACIL
-  //-----------------------------------------------
-  // public async getAllCars() {
-  //   const allCars = await this.carODM.getAll();
-  //   return allCars.map(this.createCarDomain);
-  // }
-  //-----------------------------------------------
 
   public async getCarById(id: string) {
     if (!isValidObjectId(id)) throw new CustomError(422, 'Invalid mongo id');
