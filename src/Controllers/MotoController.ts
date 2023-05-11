@@ -31,6 +31,21 @@ class MotoController {
     const newMoto = await this.service.registerMoto(moto);
     return this.res.status(201).json(newMoto);
   }
+
+  public async getAllMotos(): Promise<object> {
+    const result = await this.service.getAllMotos();
+    return this.res.status(200).json(result);
+  }
+
+  public async getMotoById() {
+    const { id } = this.req.params;
+    try {
+      const result = await this.service.getMotoById(id);
+      return this.res.status(200).json(result);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
 
 export default MotoController;
