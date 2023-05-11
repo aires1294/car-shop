@@ -23,9 +23,9 @@ class MotoODM extends AbstractODM<IMoto> {
     return this.model.findOne({ _id: id });
   }
 
-  //   public async updateCarById(id: string, obj: object) {
-  //     return this.model.findByIdAndUpdate({ _id: id }, obj, { new: true });
-  //   }
+  public async updateMotoById(id: string, obj: object) {
+    return this.model.findByIdAndUpdate({ _id: id }, obj, { new: true });
+  }
 }
 
 export default MotoODM;

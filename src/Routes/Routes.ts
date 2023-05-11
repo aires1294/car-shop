@@ -12,5 +12,7 @@ routes.post('/motorcycles', (req, res, next) => new MotoController(req, res, nex
 routes.get('/motorcycles', (req, res, next) => new MotoController(req, res, next).getAllMotos());
 routes.get('/motorcycles/:id', (req, res, next) => new MotoController(req, res, next)
   .getMotoById());
+routes.put('/motorcycles/:id', (req, res, next) => new MotoController(req, res, next)
+  .updateMotoById());
 
 export default routes;
