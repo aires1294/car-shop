@@ -8,6 +8,9 @@ import CarService from '../../../src/Services/CarService';
 // const RESULT_ERROR = 'Invalid Key';
 
 describe('Deveria validar e criar novos carros', function () {
+  afterEach(function () {
+    sinon.restore();
+  });
   it('Criando um veículo do tipo carro com SUCESSO', async function () {
     const carInput: ICar = {
       model: 'Marea',
@@ -77,4 +80,33 @@ describe('Deveria validar e criar novos carros', function () {
     const result = await service.getAllCars();
     expect(result).to.be.deep.equal([carOutput]);
   });
+
+  it('Endpoint para listar um carro pelo ID com SUCESSO', async function () {
+    const carOutput: Car = new Car(  
+      {
+        id: '634852326b35b59438fbea2f',
+        model: 'Marea',
+        year: 1992,
+        color: 'Red',
+        status: true,
+        buyValue: 12.000,
+        doorsQty: 2,
+        seatsQty: 5,
+      },
+    );
+    sinon.stub(Model, 'findOne').resolves(carOutput);
+    const service = new CarService();
+
+    const result = await service.getCarById('634852326b35b59438fbea2f');
+    expect(result).to.be.deep.equal(carOutput);
+  });
 });
+
+// public async getCarById(id: string) {
+//   if (!isValidObjectId(id)) throw new CustomError(422, 'Invalid mongo id');
+//   const car = await this.carODM.getCarById(id);
+//   // console.log('AGORAAAA', car);
+  
+//   if (!car) throw new CustomError(404, 'Car not found');
+//   return this.createCarDomain(car);
+// }
