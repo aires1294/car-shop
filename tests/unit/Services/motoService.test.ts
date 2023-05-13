@@ -25,7 +25,7 @@ describe('Deveria validar e criar novas motos', function () {
     const motoOutput: Motorcycle = new Motorcycle(  
       {
         id: '634852326b35b59438fbea2f',
-        model: 'Honda Cb 600f Hornet',
+        model: 'Honda Cb 500f Hornet',
         year: 2014,
         color: 'Red',
         status: true,
@@ -43,7 +43,7 @@ describe('Deveria validar e criar novas motos', function () {
     expect(result).to.be.deep.equal(motoOutput);
   });
 
-  it('Endpoint para listar todos os carros com SUCESSO', async function () {
+  it('Endpoint para listar todos as motos com SUCESSO', async function () {
     const motoOutput: Motorcycle = new Motorcycle(  
       {
         id: '634852326b35b59438fbea2f',
@@ -61,5 +61,25 @@ describe('Deveria validar e criar novas motos', function () {
 
     const result = await service.getAllMotos();
     expect(result).to.be.deep.equal([motoOutput]);
+  });
+
+  it('Endpoint para listar uma moto pelo ID com SUCESSO', async function () {
+    const motoOutput: Motorcycle = new Motorcycle(  
+      {
+        id: '634852326b35b59438fbea2f',
+        model: 'Honda Cb 600f Hornet',
+        year: 2014,
+        color: 'Red',
+        status: true,
+        buyValue: 45.000,
+        category: 'Street',
+        engineCapacity: 600,
+      },
+    );
+    sinon.stub(Model, 'findOne').resolves(motoOutput);
+    const service = new MotoService();
+
+    const result = await service.getMotoById('634852326b35b59438fbea2f');
+    expect(result).to.be.deep.equal(motoOutput);
   });
 });
