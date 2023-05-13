@@ -13,7 +13,7 @@ describe('Deveria validar e criar novas motos', function () {
   });
   it('Criando um veículo do tipo moto com SUCESSO', async function () {
     const motoInput: IMoto = {
-      model: 'Honda Cb 600f Hornet',
+      model: 'Honda Cb 500f Hornet',
       year: 2014,
       color: 'Red',
       status: true,
@@ -42,42 +42,24 @@ describe('Deveria validar e criar novas motos', function () {
 
     expect(result).to.be.deep.equal(motoOutput);
   });
-  // it('Criando um veículo do tipo carro INVÁLIDO', async function () {
-  //   const carInputInvalid: ICar = {
-  //     model: 'Marea',
-  //     color: 'Black',
-  //     status: true,
-  //     buyValue: 15.990,
-  //     doorsQty: 4,
-  //     seatsQty: 5,
-  //   };
-  //   sinon.stub(Model, 'create').resolves({});
 
-  //   try {
-  //     const service = new CarService();
-  //     await service.register(carInputInvalid);
-  //   } catch (error) {
-  //     expect((error as Error).message).to.be.deep.equal();
-  //   }
-  // });
+  it('Endpoint para listar todos os carros com SUCESSO', async function () {
+    const motoOutput: Motorcycle = new Motorcycle(  
+      {
+        id: '634852326b35b59438fbea2f',
+        model: 'Honda Cb 600f Hornet',
+        year: 2014,
+        color: 'Red',
+        status: true,
+        buyValue: 45.000,
+        category: 'Street',
+        engineCapacity: 600,
+      },
+    );
+    sinon.stub(Model, 'find').resolves([motoOutput]);
+    const service = new MotoService();
 
-  //   it('Endpoint para listar todos os carros com SUCESSO', async function () {
-  //     const carOutput: Car = new Car(  
-  //       {
-  //         id: '634852326b35b59438fbea2f',
-  //         model: 'Marea',
-  //         year: 1992,
-  //         color: 'Red',
-  //         status: true,
-  //         buyValue: 12.000,
-  //         doorsQty: 2,
-  //         seatsQty: 5,
-  //       },
-  //     );
-  //     sinon.stub(Model, 'find').resolves([carOutput]);
-  //     const service = new CarService();
-
-//     const result = await service.getAllCars();
-//     expect(result).to.be.deep.equal([carOutput]);
-//   });
+    const result = await service.getAllMotos();
+    expect(result).to.be.deep.equal([motoOutput]);
+  });
 });

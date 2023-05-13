@@ -100,13 +100,43 @@ describe('Deveria validar e criar novos carros', function () {
     const result = await service.getCarById('634852326b35b59438fbea2f');
     expect(result).to.be.deep.equal(carOutput);
   });
+
+  it('Endpoint para atualizar um carro pelo ID com SUCESSO', async function () {
+    const carInput: ICar = {
+      model: 'Marea',
+      year: 1992,
+      color: 'Red',
+      status: true,
+      buyValue: 12.000,
+      doorsQty: 2,
+      seatsQty: 5,
+    };
+
+    const carOutput: Car = new Car(  
+      {
+        id: '634852326b35b59438fbea2f',
+        model: 'Marea',
+        year: 1992,
+        color: 'Red',
+        status: true,
+        buyValue: 12.000,
+        doorsQty: 2,
+        seatsQty: 5,
+      },
+    );
+    sinon.stub(Model, 'findOneAndUpdate').resolves(carOutput);
+    const service = new CarService();
+
+    const result = await service.updateCarById('634852326b35b59438fbea2f', carInput);
+    expect(result).to.be.deep.equal(carOutput);
+  });
 });
 
-// public async getCarById(id: string) {
+// public async updateCarById(id: string, car: ICar) {
 //   if (!isValidObjectId(id)) throw new CustomError(422, 'Invalid mongo id');
-//   const car = await this.carODM.getCarById(id);
-//   // console.log('AGORAAAA', car);
+//   const updatedCar = await this.carODM.updateCarById(id, car);
   
-//   if (!car) throw new CustomError(404, 'Car not found');
-//   return this.createCarDomain(car);
+//   if (!updatedCar) throw new CustomError(404, 'Car not found');
+//   return this.createCarDomain(updatedCar);
+// }
 // }
